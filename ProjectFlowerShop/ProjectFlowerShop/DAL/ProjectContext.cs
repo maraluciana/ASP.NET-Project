@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Proiect_asp.net.DAL
+namespace ProjectFlowerShop.DAL
 {
     public class ProjectContext
     {
