@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace ProjectFlowerShop.DAL.Entities
 {
-    public class Bouquet
+    public class Letter
     {
-        [ForeignKey("Product")]
+        [ForeignKey("ShoppingCart")]
         public Guid Id { get; set; }
-        public string Occasion { get; set; }
-        public ICollection<FlowerBouquet> BouquetFlowers { get; set; }
-        public Product Product { get; set;  }
+        public string Message { get; set; }
+        public ShoppingCart ShoppingCart { get; set; }
     }
 }

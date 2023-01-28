@@ -13,8 +13,8 @@ namespace ProjectFlowerShop.DAL
         [ForeignKey("Discount")]
         public Guid DiscountId { get; set; }
         public float totalPrice { get; set; }
-
         public Discount Discount { get; set; }
-        public ICollection<Product> Products { get; set; }
+        public Letter Letter { get; set; }
+        public ICollection<ProductCart> ProductCarts { get; set; }
     }
 }
