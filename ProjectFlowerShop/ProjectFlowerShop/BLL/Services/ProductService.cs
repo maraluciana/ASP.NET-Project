@@ -41,6 +41,7 @@ namespace ProjectFlowerShop.BLL.Services
             }
             else
             {
+                newProduct.productType = model.productType;
                 newProduct.Name = model.Name;
                 newProduct.Path = model.Path;
                 newProduct.Price = model.Price;
