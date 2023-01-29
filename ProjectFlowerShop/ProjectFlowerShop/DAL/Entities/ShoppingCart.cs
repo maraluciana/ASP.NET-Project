@@ -9,9 +9,9 @@ namespace ProjectFlowerShop.DAL
 {
     public class ShoppingCart
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         [ForeignKey("Discount")]
-        public Guid DiscountId { get; set; }
+        public int DiscountId { get; set; }
         public float totalPrice { get; set; }
         public Discount Discount { get; set; }
         public Letter Letter { get; set; }

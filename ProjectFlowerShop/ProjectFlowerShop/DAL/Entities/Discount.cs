@@ -7,9 +7,9 @@ namespace ProjectFlowerShop.DAL.Entities
 {
     public class Discount
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string codeName { get; set; }
-        public DiscountTypes discountType { get; set; }
+        public string discountType { get; set; }
         public float Value { get; set; }
         public ICollection<ShoppingCart> ShoppingCarts { get; set; }
     }

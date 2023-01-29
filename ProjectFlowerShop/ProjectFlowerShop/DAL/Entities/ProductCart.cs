@@ -7,8 +7,8 @@ namespace ProjectFlowerShop.DAL.Entities
 {
     public class ProductCart
     {
-        public Guid ProductId { get; set; }
-        public Guid CartId { get; set; }
+        public int ProductId { get; set; }
+        public int CartId { get; set; }
         public Product Product { get; set; }
         public ShoppingCart ShoppingCart { get; set; }
     }
