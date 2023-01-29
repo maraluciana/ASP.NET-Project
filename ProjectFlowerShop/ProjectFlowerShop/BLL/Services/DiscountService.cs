@@ -26,24 +26,18 @@ namespace ProjectFlowerShop.BLL.Services
             return discountRepository.GetDiscountsByTypeIQueryable(type).ToList();
         }
 
+        public Discount GetDiscountsByCode(string code)
+        {
+            return discountRepository.GetDiscountByCode(code);
+        }
+
         public void CreateDiscount(DiscountModel model)
         {
             var newDiscount = new Discount();
 
-            if (model.Id != 0)
-            {
-                newDiscount.Id = model.Id;
-                newDiscount.discountType = model.discountType;
-                newDiscount.codeName = model.codeName;
-                newDiscount.Value = model.Value;
-
-            }
-            else
-            {
-                newDiscount.discountType = model.discountType;
-                newDiscount.codeName = model.codeName;
-                newDiscount.Value = model.Value;
-            }
+             newDiscount.discountType = model.discountType;
+             newDiscount.codeName = model.codeName;
+             newDiscount.Value = model.Value;
 
             discountRepository.CreateDiscount(newDiscount);
         }

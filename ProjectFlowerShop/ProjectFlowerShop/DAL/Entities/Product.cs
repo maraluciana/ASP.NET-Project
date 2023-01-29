@@ -13,7 +13,7 @@ namespace ProjectFlowerShop.DAL
         public string Name { get; set; }
         public float Price { get; set; }
         public string Path{ get; set; }
-        public ICollection<ProductCart> ProductCarts { get; set; }
+        public List<ProductCart> ProductCarts { get; set; }
 
     }
 }

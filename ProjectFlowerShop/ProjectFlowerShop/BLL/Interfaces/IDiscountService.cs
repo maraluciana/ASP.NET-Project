@@ -13,5 +13,6 @@ namespace ProjectFlowerShop.BLL.Interfaces
         List<Discount> GetDiscountsByType(string type);
         void CreateDiscount(DiscountModel model);
         void DeleteDiscount(int id);
+        Discount GetDiscountsByCode(string code);
     }
 }

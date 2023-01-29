@@ -13,5 +13,7 @@ namespace ProjectFlowerShop.BLL.Interfaces
         Discount GetDiscountById(int id);
         void CreateDiscount(Discount discount);
         void DeleteDiscount(Discount discount);
+        public Discount GetDiscountByCode(string code);
+        void UpdateDiscount(Discount discount);
     }
 }

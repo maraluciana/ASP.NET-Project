@@ -1,6 +1,7 @@
 ﻿using ProjectFlowerShop.BLL.Interfaces;
 using ProjectFlowerShop.BLL.Models;
 using ProjectFlowerShop.DAL;
+using ProjectFlowerShop.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,26 +27,15 @@ namespace ProjectFlowerShop.BLL.Services
             return productRepository.GetProductsByTypeIQueryable(type).ToList();
         }
 
+
         public void CreateProduct(ProductCreateModel model)
         {
             var newProduct = new Product();
 
-            if (model.Id != 0)
-            {
-                newProduct.Id = model.Id;
-                newProduct.productType = model.productType;
-                newProduct.Name = model.Name;
-                newProduct.Path = model.Path;
-                newProduct.Price = model.Price;
-
-            }
-            else
-            {
-                newProduct.productType = model.productType;
-                newProduct.Name = model.Name;
-                newProduct.Path = model.Path;
-                newProduct.Price = model.Price;
-            }
+            newProduct.productType = model.productType;
+            newProduct.Name = model.Name;
+            newProduct.Path = model.Path;
+            newProduct.Price = model.Price;
 
             productRepository.CreateProduct(newProduct);
         }

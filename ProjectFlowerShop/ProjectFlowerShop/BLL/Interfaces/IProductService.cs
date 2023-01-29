@@ -14,6 +14,5 @@ namespace ProjectFlowerShop.BLL.Interfaces
         void CreateProduct(ProductCreateModel model);
         void UpdateProduct(ProductUpdateModel model);
         void DeleteProduct(int id);
-
     }
 }

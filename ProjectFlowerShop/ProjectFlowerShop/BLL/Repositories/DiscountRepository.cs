@@ -1,4 +1,5 @@
-﻿using ProjectFlowerShop.BLL.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using ProjectFlowerShop.BLL.Interfaces;
 using ProjectFlowerShop.DAL;
 using ProjectFlowerShop.DAL.Entities;
 using System;
@@ -18,7 +19,7 @@ namespace ProjectFlowerShop.BLL.Repositories
 
         public IQueryable<Discount> GetAllDiscountsIQueryable()
         {
-            var discounts = db.Discounts
+            var discounts = db.Discounts.Include(x => x.ShoppingCarts)
                 .OrderBy(x => x.Id);
 
             return discounts;
@@ -26,7 +27,7 @@ namespace ProjectFlowerShop.BLL.Repositories
 
         public IQueryable<Discount> GetDiscountsByTypeIQueryable(string type)
         {
-            var discounts = GetAllDiscountsIQueryable()
+            var discounts = GetAllDiscountsIQueryable().Include(x => x.ShoppingCarts)
                 .Where(x => x.discountType == type);
 
             return discounts;
@@ -34,10 +35,24 @@ namespace ProjectFlowerShop.BLL.Repositories
 
         public Discount GetDiscountById(int id)
         {
-            var discount = db.Discounts
+            var discount = db.Discounts.Include(x => x.ShoppingCarts)
                 .FirstOrDefault(x => x.Id == id);
 
             return discount;
+        }
+
+        public Discount GetDiscountByCode(string code)
+        {
+            var discount = db.Discounts.Include(x => x.ShoppingCarts)
+                .FirstOrDefault(x => x.codeName == code);
+
+            return discount;
+        }
+
+        public void UpdateDiscount(Discount discount)
+        {
+            db.Discounts.Update(discount);
+            db.SaveChanges();
         }
 
         public void CreateDiscount(Discount discount)

@@ -11,6 +11,6 @@ namespace ProjectFlowerShop.DAL.Entities
         public string codeName { get; set; }
         public string discountType { get; set; }
         public float Value { get; set; }
-        public ICollection<ShoppingCart> ShoppingCarts { get; set; }
+        public List<ShoppingCart> ShoppingCarts { get; set; }
     }
 }

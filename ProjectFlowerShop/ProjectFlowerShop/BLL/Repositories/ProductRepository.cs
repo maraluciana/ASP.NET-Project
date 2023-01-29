@@ -1,4 +1,5 @@
-﻿using ProjectFlowerShop.BLL.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using ProjectFlowerShop.BLL.Interfaces;
 using ProjectFlowerShop.DAL;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace ProjectFlowerShop.BLL.Repositories
 
         public IQueryable<Product> GetAllProductsIQueryable()
         {
-            var products = db.Products
+            var products = db.Products.Include(x => x.ProductCarts)
                 .OrderBy(x => x.Name);
 
             return products;
@@ -25,7 +26,7 @@ namespace ProjectFlowerShop.BLL.Repositories
 
         public IQueryable<Product> GetProductsByTypeIQueryable(string type)
         {
-            var products = GetAllProductsIQueryable()
+            var products = GetAllProductsIQueryable().Include(x => x.ProductCarts)
                 .Where(x => x.productType == type);
 
             return products;
@@ -33,7 +34,7 @@ namespace ProjectFlowerShop.BLL.Repositories
 
         public Product GetProductById(int id)
         {
-            var product = db.Products
+            var product = db.Products.Include(x => x.ProductCarts)
                 .FirstOrDefault(x => x.Id == id);
 
             return product;

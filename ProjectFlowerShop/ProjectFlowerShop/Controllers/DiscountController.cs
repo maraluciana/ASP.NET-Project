@@ -27,6 +27,12 @@ namespace ProjectFlowerShop.Controllers
             return Ok(discounts);
         }
 
+        [HttpGet("Get_Discount_By_Code{code}")]
+        public async Task<IActionResult> GetDiscountsByCode([FromRoute] string code)
+        {
+            var discounts = service.GetDiscountsByCode(code);
+            return Ok(discounts);
+        }
         [HttpGet("Get_Discounts_By_Type{type}")]
         public async Task<IActionResult> GetDiscountsByType([FromRoute] string type)
         {

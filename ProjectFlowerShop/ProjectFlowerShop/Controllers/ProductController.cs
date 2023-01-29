@@ -35,16 +35,16 @@ namespace ProjectFlowerShop.BLL.Controllers
         }
 
         [HttpPost("Create_Product")]
-        public async Task<IActionResult> CreatePost([FromBody] ProductCreateModel productModel)
+        public async Task<IActionResult> CreatePost([FromBody] ProductCreateModel model)
         {
-            service.CreateProduct(productModel);
+            service.CreateProduct(model);
             return Ok();
         }
 
-        [HttpPut("Update_Product{id}")]
-        public async Task<IActionResult> UpdatePost([FromBody] ProductUpdateModel productModel)
+        [HttpPut("Update_Product")]
+        public async Task<IActionResult> UpdatePost([FromBody] ProductUpdateModel model)
         {
-            service.UpdateProduct(productModel);
+            service.UpdateProduct(model);
             return Ok();
         }
 
