@@ -13,6 +13,7 @@ namespace ProjectFlowerShop.BLL.Interfaces
     {
         public void DeleteShCart(int id);
         void AddDiscountToShCart(ShCartDiscountModel model);
+        void AddLetterToShCart(LetterModel model);
         List<ShoppingCart> GetAllShCarts();
         ShoppingCart GetShCartsById(int id);
         void CreateShCart();

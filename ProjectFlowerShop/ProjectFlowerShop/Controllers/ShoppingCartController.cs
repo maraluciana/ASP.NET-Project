@@ -42,6 +42,13 @@ namespace ProjectFlowerShop.Controllers
             return Ok();
         }
 
+        [HttpPut("Add_Letter_To_ShCart")]
+        public async Task<IActionResult> UpdateShCartLetter([FromBody] LetterModel model)
+        {
+            service.AddLetterToShCart(model);
+            return Ok();
+        }
+
 
         [HttpPost("Create_ShCart")]
         public async Task<IActionResult> CreateShCart()

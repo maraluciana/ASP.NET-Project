@@ -22,6 +22,7 @@ namespace ProjectFlowerShop.BLL.Repositories
             var shcarts = db.ShoppingCarts
                 .Include(x => x.Discount)
                 .Include(x => x.ProductCarts)
+                .Include(x => x.Letter)
                 .OrderBy(x => x.Id);
 
             return shcarts;
@@ -29,7 +30,9 @@ namespace ProjectFlowerShop.BLL.Repositories
 
         public ShoppingCart GetShCartById(int id)
         {
-            var shcart = db.ShoppingCarts.Include(x => x.Discount)
+            var shcart = db.ShoppingCarts
+                .Include(x => x.Discount)
+                .Include(x => x.Letter)
                 .FirstOrDefault(x => x.Id == id);
 
             return shcart;

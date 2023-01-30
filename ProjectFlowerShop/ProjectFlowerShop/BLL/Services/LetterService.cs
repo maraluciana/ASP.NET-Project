@@ -24,7 +24,7 @@ namespace ProjectFlowerShop.BLL.Services
 
         public void UpdateLetter(LetterModel model)
         {
-            var letter = letterRepository.GetLetterById(model.Id);
+            var letter = letterRepository.GetLetterById(model.letterId);
             if (model.Message != "")
                 letter.Message = model.Message;
 
@@ -33,8 +33,7 @@ namespace ProjectFlowerShop.BLL.Services
 
         public void CreateLetter(LetterModel model)
         { 
-            var newLetter = new Letter();
-
+            var newLetter = new Letter();            
             newLetter.Message = model.Message;
 
             letterRepository.CreateLetter(newLetter);

@@ -43,7 +43,9 @@ namespace ProjectFlowerShop.Migrations
             modelBuilder.Entity("ProjectFlowerShop.DAL.Entities.Letter", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Message")
                         .HasColumnType("nvarchar(max)");
@@ -102,6 +104,9 @@ namespace ProjectFlowerShop.Migrations
                     b.Property<int?>("DiscountId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("LetterId")
+                        .HasColumnType("int");
+
                     b.Property<float>("totalPrice")
                         .HasColumnType("real");
 
@@ -109,18 +114,11 @@ namespace ProjectFlowerShop.Migrations
 
                     b.HasIndex("DiscountId");
 
+                    b.HasIndex("LetterId")
+                        .IsUnique()
+                        .HasFilter("[LetterId] IS NOT NULL");
+
                     b.ToTable("ShoppingCarts");
-                });
-
-            modelBuilder.Entity("ProjectFlowerShop.DAL.Entities.Letter", b =>
-                {
-                    b.HasOne("ProjectFlowerShop.DAL.ShoppingCart", "ShoppingCart")
-                        .WithOne("Letter")
-                        .HasForeignKey("ProjectFlowerShop.DAL.Entities.Letter", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ShoppingCart");
                 });
 
             modelBuilder.Entity("ProjectFlowerShop.DAL.Entities.ProductCart", b =>
@@ -148,12 +146,23 @@ namespace ProjectFlowerShop.Migrations
                         .WithMany("ShoppingCarts")
                         .HasForeignKey("DiscountId");
 
+                    b.HasOne("ProjectFlowerShop.DAL.Entities.Letter", "Letter")
+                        .WithOne("ShoppingCart")
+                        .HasForeignKey("ProjectFlowerShop.DAL.ShoppingCart", "LetterId");
+
                     b.Navigation("Discount");
+
+                    b.Navigation("Letter");
                 });
 
             modelBuilder.Entity("ProjectFlowerShop.DAL.Entities.Discount", b =>
                 {
                     b.Navigation("ShoppingCarts");
+                });
+
+            modelBuilder.Entity("ProjectFlowerShop.DAL.Entities.Letter", b =>
+                {
+                    b.Navigation("ShoppingCart");
                 });
 
             modelBuilder.Entity("ProjectFlowerShop.DAL.Product", b =>
@@ -163,8 +172,6 @@ namespace ProjectFlowerShop.Migrations
 
             modelBuilder.Entity("ProjectFlowerShop.DAL.ShoppingCart", b =>
                 {
-                    b.Navigation("Letter");
-
                     b.Navigation("ProductCarts");
                 });
 #pragma warning restore 612, 618

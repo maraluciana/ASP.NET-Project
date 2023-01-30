@@ -2,7 +2,7 @@
 
 namespace ProjectFlowerShop.Migrations
 {
-    public partial class Initial_20 : Migration
+    public partial class Initial30 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,6 +19,19 @@ namespace ProjectFlowerShop.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Discounts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Letters",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Letters", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -43,7 +56,8 @@ namespace ProjectFlowerShop.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DiscountId = table.Column<int>(type: "int", nullable: false),
+                    DiscountId = table.Column<int>(type: "int", nullable: true),
+                    LetterId = table.Column<int>(type: "int", nullable: true),
                     totalPrice = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
@@ -54,25 +68,13 @@ namespace ProjectFlowerShop.Migrations
                         column: x => x.DiscountId,
                         principalTable: "Discounts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Letters",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Letters", x => x.Id);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Letters_ShoppingCarts_Id",
-                        column: x => x.Id,
-                        principalTable: "ShoppingCarts",
+                        name: "FK_ShoppingCarts_Letters_LetterId",
+                        column: x => x.LetterId,
+                        principalTable: "Letters",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -108,13 +110,17 @@ namespace ProjectFlowerShop.Migrations
                 name: "IX_ShoppingCarts_DiscountId",
                 table: "ShoppingCarts",
                 column: "DiscountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoppingCarts_LetterId",
+                table: "ShoppingCarts",
+                column: "LetterId",
+                unique: true,
+                filter: "[LetterId] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Letters");
-
             migrationBuilder.DropTable(
                 name: "ProductCart");
 
@@ -126,6 +132,9 @@ namespace ProjectFlowerShop.Migrations
 
             migrationBuilder.DropTable(
                 name: "Discounts");
+
+            migrationBuilder.DropTable(
+                name: "Letters");
         }
     }
 }

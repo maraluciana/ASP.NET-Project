@@ -14,12 +14,14 @@ namespace ProjectFlowerShop.BLL.Services
     {
         private readonly IShoppingCartRepository shcartRepository;
         private readonly IDiscountRepository discRepository;
+        private readonly ILetterRepository letterRepository;
         private readonly ProjectContext db;
 
-        public ShoppingCartService(IShoppingCartRepository shcartRepository, IDiscountRepository discRepository, ProjectContext db)
+        public ShoppingCartService(IShoppingCartRepository shcartRepository, IDiscountRepository discRepository, ILetterRepository letterRepository, ProjectContext db)
         {
             this.shcartRepository = shcartRepository;
             this.discRepository = discRepository;
+            this.letterRepository = letterRepository;
             this.db = db;
         }
 
@@ -48,6 +50,18 @@ namespace ProjectFlowerShop.BLL.Services
             
             if(discount != null)
                 shcart.DiscountId = discount.Id;
+
+            shcartRepository.UpdateShCart(shcart);
+        }
+        
+        public void AddLetterToShCart(LetterModel model)
+        {
+
+            var shcart = shcartRepository.GetShCartById(model.cartId);
+            Letter letter = letterRepository.GetLetterById(model.letterId);
+
+            if (letter != null)
+                shcart.LetterId = letter.Id;
 
             shcartRepository.UpdateShCart(shcart);
         }
