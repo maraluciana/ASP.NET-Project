@@ -16,5 +16,6 @@ namespace ProjectFlowerShop.BLL.Interfaces
         List<ShoppingCart> GetAllShCarts();
         ShoppingCart GetShCartsById(int id);
         void CreateShCart();
+        float GetFinalPriceOfShCart(int id);
     }
 }

@@ -19,7 +19,9 @@ namespace ProjectFlowerShop.BLL.Repositories
 
         public IQueryable<ShoppingCart> GetAllShCartsIQueryable()
         {
-            var shcarts = db.ShoppingCarts.Include(x => x.Discount)
+            var shcarts = db.ShoppingCarts
+                .Include(x => x.Discount)
+                .Include(x => x.ProductCarts)
                 .OrderBy(x => x.Id);
 
             return shcarts;

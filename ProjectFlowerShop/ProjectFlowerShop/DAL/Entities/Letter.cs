@@ -8,8 +8,9 @@ namespace ProjectFlowerShop.DAL.Entities
 {
     public class Letter
     {
-        [ForeignKey("ShoppingCart")]
         public int Id { get; set; }
+        [ForeignKey("ShoppingCart")]
+        public int CartId { get; set; }
         public string Message { get; set; }
         public ShoppingCart ShoppingCart { get; set; }
     }

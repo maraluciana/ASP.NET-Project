@@ -19,6 +19,22 @@ namespace ProjectFlowerShop.Controllers
             this.service = shcartService;
         }
 
+
+
+        [HttpGet("Get_All_ShCarts")]
+        public async Task<IActionResult> GetAllShCarts()
+        {
+            var shcarts = service.GetAllShCarts();
+            return Ok(shcarts);
+        }
+
+        [HttpGet("Get_FinalPrice_of_ShCart{id}")]
+        public async Task<IActionResult> GetFinalPriceOfShCart([FromRoute] int id)
+        {
+            var shcarts = service.GetFinalPriceOfShCart(id);
+            return Ok(shcarts);
+        }
+
         [HttpPut("Add_Discount_To_ShCart")]
         public async Task<IActionResult> UpdateShCartDiscount([FromBody] ShCartDiscountModel model)
         {
@@ -27,20 +43,11 @@ namespace ProjectFlowerShop.Controllers
         }
 
 
-
-        //just for debuging
         [HttpPost("Create_ShCart")]
         public async Task<IActionResult> CreateShCart()
         {
             service.CreateShCart();
             return Ok();
-        }
-
-        [HttpGet("Get_All_ShCarts")]
-        public async Task<IActionResult> GetAllShCarts()
-        {
-            var shcarts = service.GetAllShCarts();
-            return Ok(shcarts);
         }
 
         [HttpDelete("Delete_ShCart{id}")]

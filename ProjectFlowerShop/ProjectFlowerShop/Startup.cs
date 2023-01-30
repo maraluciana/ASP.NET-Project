@@ -51,6 +51,12 @@ namespace ProjectFlowerShop
 
             services.AddTransient<IShoppingCartRepository, ShoppingCartRepository>();
             services.AddTransient<IShoppingCartService, ShoppingCartService>();
+
+            services.AddTransient<IProductCartRepository, ProductCartRepository>();
+            services.AddTransient<IProductCartService, ProductCartService>();
+
+            services.AddTransient<ILetterRepository, LetterRepository>();
+            services.AddTransient<ILetterService, LetterService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

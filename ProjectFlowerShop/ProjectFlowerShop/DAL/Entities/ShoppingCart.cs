@@ -12,6 +12,8 @@ namespace ProjectFlowerShop.DAL
         public int Id { get; set; }
         [ForeignKey("Discount")]
         public int? DiscountId { get; set; }
+        [ForeignKey("Letter")]
+        public int? LetterId { get; set; }
         public float totalPrice { get; set; }
         public Discount Discount { get; set; }
         public Letter Letter { get; set; }

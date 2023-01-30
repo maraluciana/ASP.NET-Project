@@ -58,5 +58,28 @@ namespace ProjectFlowerShop.BLL.Services
             shcartRepository.DeleteShCart(shcart);
         }
 
+        public float GetFinalPriceOfShCart(int id)
+        {
+            var shcart = shcartRepository.GetShCartById(id);
+            var discount = shcart.Discount;
+
+            var finalPrice = shcart.totalPrice;
+
+            if (discount != null)
+            {
+                if (discount.discountType == "percentage")
+                {
+                    finalPrice = finalPrice * (1 - discount.Value / 100);
+                }
+                else //amount
+                {
+                    finalPrice = finalPrice - discount.Value;
+                    if (finalPrice < 0)
+                        finalPrice = 0;
+                }
+            }
+
+            return finalPrice;
+        }
     }
 }
