@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using ProjectFlowerShop.BLL.Interfaces;
 using ProjectFlowerShop.BLL.Models;
@@ -35,6 +36,7 @@ namespace ProjectFlowerShop.BLL.Controllers
         }
 
         [HttpPost("Create_Product")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreatePost([FromBody] ProductCreateModel model)
         {
             service.CreateProduct(model);
@@ -42,6 +44,7 @@ namespace ProjectFlowerShop.BLL.Controllers
         }
 
         [HttpPut("Update_Product")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> UpdatePost([FromBody] ProductUpdateModel model)
         {
             service.UpdateProduct(model);
@@ -49,6 +52,7 @@ namespace ProjectFlowerShop.BLL.Controllers
         }
 
         [HttpDelete("Delete_Product{id}")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> DeletePost([FromRoute] int id)
         {
             service.DeleteProduct(id);

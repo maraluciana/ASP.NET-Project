@@ -39,8 +39,37 @@ namespace ProjectFlowerShop
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProjectFlowerShop", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Lab2ProjectWeb", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
+                      Enter 'Bearer' [space] and then your token in the text input below.
+                      \r\n\r\nExample: 'Bearer 12345abcdef'",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header
+                        },
+                        new List<string>()
+                    }
+                });
             });
+
 
             services.AddDbContext<ProjectContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnString")),ServiceLifetime.Transient);
 
@@ -56,9 +85,8 @@ namespace ProjectFlowerShop
                 })
                 .AddJwtBearer("AuthScheme", options =>
                 {
-                    options.RequireHttpsMetadata = true;
                     options.SaveToken = true;
-                    var secret = Configuration.GetSection("Jwt").GetSection("Token").Get<String>();
+                    var secret = Configuration.GetSection("Jwt").GetSection("SecretKey").Get<String>();
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
@@ -71,8 +99,16 @@ namespace ProjectFlowerShop
                     };
                 });
 
+            services.AddAuthorization(opt =>
+            {
+                opt.AddPolicy("User", policy => policy.RequireRole("User").RequireAuthenticatedUser().AddAuthenticationSchemes("AuthScheme").Build());
+                opt.AddPolicy("Admin", policy => policy.RequireRole("Admin").RequireAuthenticatedUser().AddAuthenticationSchemes("AuthScheme").Build());
+
+            });
+
             services.AddControllers()
                 .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
 
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IProductService, ProductService>();
@@ -89,8 +125,9 @@ namespace ProjectFlowerShop
             services.AddTransient<ILetterRepository, LetterRepository>();
             services.AddTransient<ILetterService, LetterService>();
 
-            services.AddTransient<IAuthentificationService, AuthentificationService>();
+            services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddTransient<ITokenService, TokenService > ();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

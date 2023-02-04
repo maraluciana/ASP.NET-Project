@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using ProjectFlowerShop.BLL.Interfaces;
 using ProjectFlowerShop.BLL.Models;
@@ -41,6 +42,7 @@ namespace ProjectFlowerShop.Controllers
         }
 
         [HttpPost("Create_Discount")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreateDiscount([FromBody] DiscountModel discountModel)
         {
             service.CreateDiscount(discountModel);
@@ -48,6 +50,7 @@ namespace ProjectFlowerShop.Controllers
         }
 
         [HttpDelete("Delete_Discount{id}")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> DeleteDiscount([FromRoute] int id)
         {
             service.DeleteDiscount(id);

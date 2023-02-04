@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectFlowerShop.BLL.Interfaces
 {
-    public interface IAuthentificationService
+    public interface IAuthenticationService
     {
         Task Register(RegisterUserModel registerModel);
         Task<TokenModel> Login(LoginUserModel loginModel);
