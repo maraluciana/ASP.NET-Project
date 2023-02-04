@@ -21,7 +21,7 @@ namespace ProjectFlowerShop.BLL.Repositories
         {
             var discounts = db.Discounts
                 .Include(x => x.ShoppingCarts)
-                .OrderBy(x => x.Id);
+                .OrderBy(x => x.Id); 
 
             return discounts;
         }

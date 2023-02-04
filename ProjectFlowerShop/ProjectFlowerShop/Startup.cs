@@ -12,6 +12,7 @@ using ProjectFlowerShop.BLL.Interfaces;
 using ProjectFlowerShop.BLL.Repositories;
 using ProjectFlowerShop.BLL.Services;
 using ProjectFlowerShop.DAL;
+using ProjectFlowerShop.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,6 +58,9 @@ namespace ProjectFlowerShop
 
             services.AddTransient<ILetterRepository, LetterRepository>();
             services.AddTransient<ILetterService, LetterService>();
+
+            services.AddIdentity<User, Role>()
+                .AddEntityFrameworkStores<ProjectContext> ();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

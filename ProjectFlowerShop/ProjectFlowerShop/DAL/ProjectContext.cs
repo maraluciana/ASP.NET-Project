@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ProjectFlowerShop.DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProjectFlowerShop.DAL
 {
-    public class ProjectContext : DbContext
+    public class ProjectContext : IdentityDbContext <User, Role, int, IdentityUserClaim<int>, UserRole, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
         public ProjectContext(DbContextOptions<ProjectContext> options) : base(options) { }
         public DbSet<Discount> Discounts { get; set; } 
@@ -17,6 +19,7 @@ namespace ProjectFlowerShop.DAL
         public DbSet<Letter> Letters { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             //ProductCart
             modelBuilder.Entity<ProductCart>().HasKey(uc => new { uc.ProductId, uc.CartId });
 
