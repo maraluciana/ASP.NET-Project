@@ -7,7 +7,8 @@ namespace ProjectFlowerShop.BLL.Models
 {
     public class TokenModel
     {
-
-        public string Token { get; set; }
+        public bool Success { get; set; }
+        public string AccessToken { get; set; }
+        public string RefreshToken { get; set; }
     }
 }

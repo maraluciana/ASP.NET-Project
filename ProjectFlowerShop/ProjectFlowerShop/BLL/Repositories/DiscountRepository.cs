@@ -44,6 +44,15 @@ namespace ProjectFlowerShop.BLL.Repositories
             return discount;
         }
 
+        public Dictionary<float, List<Discount>> GroupDiscountsComparedToValue(float value)
+        {
+            var groupedDiscounts = db.Discounts.Where(d => d.Value >= value)
+                .GroupBy(d => d.Value)
+                .ToDictionary(g => g.Key, g => g.ToList());
+
+            return groupedDiscounts;
+        }
+
         public Discount GetDiscountByCode(string code)
         {
             var discount = db.Discounts

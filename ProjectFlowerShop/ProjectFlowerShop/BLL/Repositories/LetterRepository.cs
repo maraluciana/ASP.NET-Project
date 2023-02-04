@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjectFlowerShop.BLL.Interfaces;
+using ProjectFlowerShop.BLL.Models;
 using ProjectFlowerShop.DAL;
 using ProjectFlowerShop.DAL.Entities;
 using System;
@@ -31,6 +32,20 @@ namespace ProjectFlowerShop.BLL.Repositories
                 .FirstOrDefault(x => x.Id == id);
 
             return letter;
+        }
+
+        public (string,int) JoinLetterToShoppingCart(int id)
+        {
+            var result = db.Letters
+                   .Join(db.ShoppingCarts,
+                         l => l.Id,
+                         s => s.LetterId,
+                         (l, s) => new { l, s })
+                   .FirstOrDefault(x => x.s.Id == id);
+
+            var message = result.l.Message;
+
+            return (message,id);
         }
 
         public void UpdateLetter(Letter letter)

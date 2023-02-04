@@ -41,19 +41,35 @@ namespace ProjectFlowerShop.BLL.Services
         public async Task<TokenModel> Login(LoginUserModel loginUserModel)
         {
             var user = await userManager.FindByEmailAsync(loginUserModel.Email);
-            if (user != null)
+            if (user == null)
+                return new TokenModel
+                {
+                    Success = false
+                };
+            else
             {
                 var result = await signInManager.CheckPasswordSignInAsync(user, loginUserModel.Password, false);
                 if (result.Succeeded)
                 {
-                    //Create token
-                    var token = await tokenService.CreateToken(user); //new manager responsible with creating the token
+                    var token = await tokenService.CreateAccessToken(user);
+                    var refreshToken = tokenService.CreateRefreshToken();
 
-                    return new TokenModel { Token = token };
+                    user.RefreshToken = refreshToken;
+                    await userManager.UpdateAsync(user);
+
+                    return new TokenModel
+                    {
+                        Success = true,
+                        AccessToken = token,
+                        RefreshToken = refreshToken
+                    };
                 }
+                else
+                    return new TokenModel
+                    {
+                        Success = false
+                    };
             }
-
-            return null;
         }
     }
 }
