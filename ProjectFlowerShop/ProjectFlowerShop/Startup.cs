@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ProjectFlowerShop.BLL.Interfaces;
 using ProjectFlowerShop.BLL.Repositories;
@@ -16,6 +18,7 @@ using ProjectFlowerShop.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ProjectFlowerShop
@@ -41,6 +44,33 @@ namespace ProjectFlowerShop
 
             services.AddDbContext<ProjectContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnString")),ServiceLifetime.Transient);
 
+            services.AddIdentity<User, Role>()
+             .AddEntityFrameworkStores<ProjectContext>();
+
+            services
+                .AddAuthentication(options =>
+                {
+
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer("AuthScheme", options =>
+                {
+                    options.RequireHttpsMetadata = true;
+                    options.SaveToken = true;
+                    var secret = Configuration.GetSection("Jwt").GetSection("Token").Get<String>();
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        ValidateLifetime = true,
+                        RequireExpirationTime = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ClockSkew = TimeSpan.Zero
+                    };
+                });
+
             services.AddControllers()
                 .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
@@ -59,8 +89,8 @@ namespace ProjectFlowerShop
             services.AddTransient<ILetterRepository, LetterRepository>();
             services.AddTransient<ILetterService, LetterService>();
 
-            services.AddIdentity<User, Role>()
-                .AddEntityFrameworkStores<ProjectContext> ();
+            services.AddTransient<IAuthentificationService, AuthentificationService>();
+            services.AddTransient<ITokenService, TokenService > ();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
