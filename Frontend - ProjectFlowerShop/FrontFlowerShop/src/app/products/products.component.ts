@@ -14,14 +14,6 @@ export class ProductsComponent implements OnInit, OnDestroy{
     this.getProducts();
   }
 
-  product : Product = {
-    id: 100,
-    productType: 'Flower',
-    name: 'Trandafir rosu',
-    price: 5,
-    path: '',
-  };
-
   selectedProduct?: Product;
   products : Product[] = []
 
