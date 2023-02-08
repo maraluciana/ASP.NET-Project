@@ -14,7 +14,7 @@ namespace ProjectFlowerShop.BLL.Controllers
 {
     [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
     [ApiController]
-    [EnableCors("AllowOrigin")]
+    [EnableCors("OpenCORSPolicy")]
     public class ProductController : ControllerBase
     {
         public List<Product> Product = new List<Product>
@@ -50,6 +50,13 @@ namespace ProjectFlowerShop.BLL.Controllers
         {
             var products = service.GetProductsByType(type);
             return Ok(products);
+        }
+
+        [HttpGet("Get_Product_By_Id{id}")]
+        public async Task<IActionResult> GetProductById([FromRoute] int id)
+        {
+            var product = service.GetProductById(id);
+            return Ok(product);
         }
 
         [HttpPost("Create_Product")]

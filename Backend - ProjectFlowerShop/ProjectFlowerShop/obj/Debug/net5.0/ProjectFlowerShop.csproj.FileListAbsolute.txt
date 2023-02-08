@@ -140,3 +140,5 @@ D:\Proiect .Net\Proiect.net\Backend - ProjectFlowerShop\ProjectFlowerShop\obj\De
 D:\Proiect .Net\Proiect.net\Backend - ProjectFlowerShop\ProjectFlowerShop\obj\Debug\net5.0\ref\ProjectFlowerShop.dll
 D:\Proiect .Net\Proiect.net\Backend - ProjectFlowerShop\ProjectFlowerShop\obj\Debug\net5.0\ProjectFlowerShop.pdb
 D:\Proiect .Net\Proiect.net\Backend - ProjectFlowerShop\ProjectFlowerShop\obj\Debug\net5.0\ProjectFlowerShop.genruntimeconfig.cache
+D:\Proiect .Net\Proiect.net\Backend - ProjectFlowerShop\ProjectFlowerShop\bin\Debug\net5.0\Microsoft.DotNet.PlatformAbstractions.dll
+D:\Proiect .Net\Proiect.net\Backend - ProjectFlowerShop\ProjectFlowerShop\bin\Debug\net5.0\Microsoft.Extensions.DependencyModel.dll

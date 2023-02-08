@@ -4,7 +4,11 @@
     <div><span>id: </span>{{product.id}}</div>
     <div>
       <label for="product-name">Product name: </label>
-      <input id="product-name" [(ngModel)]="product.name" placeholder="name">
+      <div>{{product.name}}</div>
+      <label for="product-name">Product price: </label>
+      <div>{{product.price}} lei</div>
+      <label for="product-name">Product type: </label>
+      <div>{{product.productType}}</div>
     </div>
     <button type="button" (click)="goBack()">go back</button>
   </div>

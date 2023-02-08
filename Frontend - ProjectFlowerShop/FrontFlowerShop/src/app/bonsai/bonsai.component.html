@@ -1,4 +1,4 @@
-<h2>All available products</h2>
+<h2>All available bonsais</h2>
 <ul class="products">
     <li *ngFor="let product of products">
       <a routerLink="/detail/{{product.id}}">
@@ -7,7 +7,6 @@
     </li>
   </ul>
 
-  <nav>
-    <a routerLink="/bonsai">Bonsai</a>
-  </nav>
-  <router-outlet></router-outlet>
+<div>
+<button type="button" (click)="goBack()">go back</button>
+</div>

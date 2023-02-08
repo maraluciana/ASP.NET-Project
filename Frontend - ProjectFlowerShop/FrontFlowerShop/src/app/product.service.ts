@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Product } from './interfaces/product';
-import { PRODUCTS } from './mock-products';
 import { catchError, map, tap } from 'rxjs/operators';
 
 
@@ -25,8 +24,15 @@ export class ProductService {
   getProduct(id: number): Observable<Product> {
     // For now, assume that a product with the specified `id` always exists.
     // Error handling will be added in the next step of the tutorial.
-    const product = PRODUCTS.find(h => h.id === id)!;
-    return of(product);
+    const url = (this.productsUrl + '/Get_Product_By_Id' + id);
+    return this.http.get<Product>(url)
+  }
+
+  getProductsType(productType: string): Observable<Product[]> {
+    // For now, assume that a product with the specified `id` always exists.
+    // Error handling will be added in the next step of the tutorial.
+    const url = (this.productsUrl + '/Get_Products_By_Type' + productType);
+    return this.http.get<Product[]>(url)
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

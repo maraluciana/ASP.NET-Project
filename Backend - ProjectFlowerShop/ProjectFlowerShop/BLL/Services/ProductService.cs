@@ -27,6 +27,11 @@ namespace ProjectFlowerShop.BLL.Services
             return productRepository.GetProductsByTypeIQueryable(type).ToList();
         }
 
+        public Product GetProductById(int id)
+        {
+            return productRepository.GetProductById(id);
+        }
+
 
         public void CreateProduct(ProductCreateModel model)
         {

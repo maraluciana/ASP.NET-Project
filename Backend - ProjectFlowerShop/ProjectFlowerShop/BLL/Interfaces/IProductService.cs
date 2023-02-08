@@ -11,6 +11,7 @@ namespace ProjectFlowerShop.BLL.Interfaces
     {
         List<Product> GetAllProducts();
         List<Product> GetProductsByType(string type);
+        Product GetProductById(int id);
         void CreateProduct(ProductCreateModel model);
         void UpdateProduct(ProductUpdateModel model);
         void DeleteProduct(int id);

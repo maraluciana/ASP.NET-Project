@@ -8,6 +8,7 @@ import { ProductsComponent } from './products/products.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { HttpClientModule } from '@angular/common/http';
+import { BonsaiComponent } from './bonsai/bonsai.component';
 
 
 
@@ -16,7 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     ProductsComponent,
     DashboardComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    BonsaiComponent,
   ],
   imports: [
     BrowserModule,
