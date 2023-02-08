@@ -1,0 +1,12 @@
+<h2>All available bonsais</h2>
+<ul class="products">
+    <li *ngFor="let product of products">
+      <a routerLink="/detail/{{product.id}}">
+        <span class="badge">{{product.id}}</span><span class ="name">{{product.name}}</span>
+      </a>
+    </li>
+  </ul>
+
+<div>
+<button type="button" (click)="goBack()">go back</button>
+</div>

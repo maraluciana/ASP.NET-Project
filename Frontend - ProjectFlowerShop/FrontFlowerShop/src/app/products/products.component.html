@@ -1,0 +1,13 @@
+<h2>All available products</h2>
+<ul class="products">
+    <li *ngFor="let product of products">
+      <a routerLink="/detail/{{product.id}}">
+        <span class="badge">{{product.id}}</span><span class ="name">{{product.name}}</span>
+      </a>
+    </li>
+  </ul>
+
+  <nav>
+    <a routerLink="/bonsai">Bonsai</a>
+  </nav>
+  <router-outlet></router-outlet>
